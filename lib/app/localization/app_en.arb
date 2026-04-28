@@ -1,0 +1,91 @@
+{
+  "@@locale": "en",
+  "appTitle": "ActiveNudge",
+  "reminders": "Reminders",
+  "active": "Active",
+  "inactive": "Inactive",
+  "nextReminder": "Next reminder",
+  "suggestedActivity": "Suggested activity",
+  "startNow": "Start now",
+  "settings": "Settings",
+  "history": "History",
+  "activities": "Activities",
+  "language": "Language",
+  "systemDefault": "System default",
+  "english": "English",
+  "portuguese": "Português",
+  "reminderInterval": "Reminder interval",
+  "defaultActivityDuration": "Default activity duration",
+  "activeHours": "Active hours",
+  "startTime": "Start time",
+  "endTime": "End time",
+  "activeDays": "Active days",
+  "notifications": "Notifications",
+  "sound": "Sound",
+  "vibration": "Vibration",
+  "autoOpenExternalContent": "Auto-open external content",
+  "save": "Save",
+  "minutes": "{count, plural, one{1 min} other{{count} min}}",
+  "@minutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "intervalValidation": "Reminder interval must be greater than zero.",
+  "durationValidation": "Activity duration must be greater than zero.",
+  "timeValidation": "Start and end time must be valid.",
+  "activeDaysValidation": "Select at least one active day when reminders are enabled.",
+  "completedToday": "Completed today",
+  "activeMinutesToday": "Active minutes today",
+  "completionRate": "Completion rate",
+  "completed": "Completed",
+  "skipped": "Skipped",
+  "expired": "Expired",
+  "manual": "Manual",
+  "reminder": "Reminder",
+  "activityDuration": "Duration",
+  "instructions": "Instructions",
+  "start": "Start",
+  "pause": "Pause",
+  "resume": "Resume",
+  "complete": "Complete",
+  "skip": "Skip",
+  "openContent": "Open content",
+  "noActivitySelected": "No activity selected",
+  "noHistoryYet": "No sessions yet",
+  "noNextReminder": "No reminder scheduled",
+  "remindersEnabled": "Reminders enabled",
+  "remindersDisabled": "Reminders disabled",
+  "low": "Low",
+  "medium": "Medium",
+  "high": "High",
+  "mobility": "Mobility",
+  "strength": "Strength",
+  "cardio": "Cardio",
+  "breathing": "Breathing",
+  "timerExpired": "Timer expired",
+  "settingsSaved": "Settings saved",
+  "monday": "Mon",
+  "tuesday": "Tue",
+  "wednesday": "Wed",
+  "thursday": "Thu",
+  "friday": "Fri",
+  "saturday": "Sat",
+  "sunday": "Sun",
+  "timeToMoveTitle": "Time to move",
+  "movementRemindersChannelName": "Movement reminders",
+  "movementRemindersChannelDescription": "ActiveNudge movement reminder notifications",
+  "timeToMoveMessage": "Try: {activityTitle} · {minutes} min",
+  "@timeToMoveMessage": {
+    "placeholders": {
+      "activityTitle": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  }
+}

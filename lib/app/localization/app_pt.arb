@@ -1,0 +1,91 @@
+{
+  "@@locale": "pt",
+  "appTitle": "ActiveNudge",
+  "reminders": "Lembretes",
+  "active": "Ativos",
+  "inactive": "Inativos",
+  "nextReminder": "Próximo lembrete",
+  "suggestedActivity": "Atividade sugerida",
+  "startNow": "Começar agora",
+  "settings": "Configurações",
+  "history": "Histórico",
+  "activities": "Atividades",
+  "language": "Idioma",
+  "systemDefault": "Predefinição do sistema",
+  "english": "Inglês",
+  "portuguese": "Português",
+  "reminderInterval": "Intervalo entre lembretes",
+  "defaultActivityDuration": "Duração padrão da atividade",
+  "activeHours": "Horário ativo",
+  "startTime": "Hora de início",
+  "endTime": "Hora de fim",
+  "activeDays": "Dias ativos",
+  "notifications": "Notificações",
+  "sound": "Som",
+  "vibration": "Vibração",
+  "autoOpenExternalContent": "Abrir conteúdo externo automaticamente",
+  "save": "Guardar",
+  "minutes": "{count, plural, one{1 min} other{{count} min}}",
+  "@minutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "intervalValidation": "O intervalo entre lembretes deve ser maior que zero.",
+  "durationValidation": "A duração da atividade deve ser maior que zero.",
+  "timeValidation": "A hora de início e fim devem ser válidas.",
+  "activeDaysValidation": "Selecione pelo menos um dia ativo quando os lembretes estiverem ligados.",
+  "completedToday": "Concluídas hoje",
+  "activeMinutesToday": "Minutos ativos hoje",
+  "completionRate": "Taxa de conclusão",
+  "completed": "Concluída",
+  "skipped": "Saltada",
+  "expired": "Expirada",
+  "manual": "Manual",
+  "reminder": "Lembrete",
+  "activityDuration": "Duração",
+  "instructions": "Instruções",
+  "start": "Começar",
+  "pause": "Pausar",
+  "resume": "Retomar",
+  "complete": "Concluir",
+  "skip": "Saltar",
+  "openContent": "Abrir conteúdo",
+  "noActivitySelected": "Nenhuma atividade selecionada",
+  "noHistoryYet": "Ainda não há sessões",
+  "noNextReminder": "Nenhum lembrete programado",
+  "remindersEnabled": "Lembretes ligados",
+  "remindersDisabled": "Lembretes desligados",
+  "low": "Baixa",
+  "medium": "Média",
+  "high": "Alta",
+  "mobility": "Mobilidade",
+  "strength": "Força",
+  "cardio": "Cardio",
+  "breathing": "Respiração",
+  "timerExpired": "Temporizador terminado",
+  "settingsSaved": "Configurações guardadas",
+  "monday": "Seg",
+  "tuesday": "Ter",
+  "wednesday": "Qua",
+  "thursday": "Qui",
+  "friday": "Sex",
+  "saturday": "Sáb",
+  "sunday": "Dom",
+  "timeToMoveTitle": "Hora de se mexer",
+  "movementRemindersChannelName": "Lembretes de movimento",
+  "movementRemindersChannelDescription": "Notificações de lembretes de movimento da ActiveNudge",
+  "timeToMoveMessage": "Sugestão: {activityTitle} · {minutes} min",
+  "@timeToMoveMessage": {
+    "placeholders": {
+      "activityTitle": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  }
+}
