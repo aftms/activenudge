@@ -54,7 +54,7 @@ Included activities:
 - Breathing and posture / Respiração e postura
 - Wrist stretch / Alongamento dos punhos
 
-Users can also create and edit activities from the Activities screen. Custom activities currently expose English and Portuguese fields in the UI, but the underlying activity model stores translations by language code so more languages can be added without adding new database columns such as `titleEs` or `titleFr`. Custom activities support duration, category, intensity, content type, optional URLs for external links or videos, optional local images, and active/inactive status. Selected images are copied into the app support directory and referenced from the local database.
+Users can also create and edit activities from the Activities screen. The editor shows one set of text fields in the currently selected app language and stores that text as a translation for that language code. The underlying activity model stores translations by language code so more languages can be added without adding new database columns such as `titleEs` or `titleFr`. Custom activities support duration, category, intensity, content type, optional URLs for external links or videos, optional local images, and active/inactive status. Selected images are copied into the app support directory and referenced from the local database.
 
 ## Setup
 

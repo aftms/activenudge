@@ -65,6 +65,8 @@ class _ActivityEditorState extends ConsumerState<_ActivityEditor> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final isEditing = widget.activity != null;
+    final languageCode = Localizations.localeOf(context).languageCode;
+    final translation = _draft.translationForLanguageCode(languageCode);
     return AppScaffold(
       selectedRoute: activitiesRoute,
       actions: <Widget>[
@@ -93,49 +95,38 @@ class _ActivityEditorState extends ConsumerState<_ActivityEditor> {
                     child: Column(
                       children: <Widget>[
                         _TextField(
-                          label: l10n.titleEnglish,
-                          value: _draft.titleEn,
-                          onChanged: (value) =>
-                              _update(_draft.copyWith(titleEn: value)),
+                          label: l10n.activityTitle,
+                          value: translation.title,
+                          onChanged: (value) => _update(
+                            _draft.withTranslation(
+                              languageCode: languageCode,
+                              title: value,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 12),
                         _TextField(
-                          label: l10n.titlePortuguese,
-                          value: _draft.titlePt,
-                          onChanged: (value) =>
-                              _update(_draft.copyWith(titlePt: value)),
-                        ),
-                        const SizedBox(height: 12),
-                        _TextField(
-                          label: l10n.descriptionEnglish,
-                          value: _draft.descriptionEn,
+                          label: l10n.activityDescription,
+                          value: translation.description,
                           maxLines: 2,
-                          onChanged: (value) =>
-                              _update(_draft.copyWith(descriptionEn: value)),
+                          onChanged: (value) => _update(
+                            _draft.withTranslation(
+                              languageCode: languageCode,
+                              description: value,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 12),
                         _TextField(
-                          label: l10n.descriptionPortuguese,
-                          value: _draft.descriptionPt,
-                          maxLines: 2,
-                          onChanged: (value) =>
-                              _update(_draft.copyWith(descriptionPt: value)),
-                        ),
-                        const SizedBox(height: 12),
-                        _TextField(
-                          label: l10n.instructionsEnglish,
-                          value: _draft.instructionsEn,
+                          label: l10n.activityInstructions,
+                          value: translation.instructions,
                           maxLines: 3,
-                          onChanged: (value) =>
-                              _update(_draft.copyWith(instructionsEn: value)),
-                        ),
-                        const SizedBox(height: 12),
-                        _TextField(
-                          label: l10n.instructionsPortuguese,
-                          value: _draft.instructionsPt,
-                          maxLines: 3,
-                          onChanged: (value) =>
-                              _update(_draft.copyWith(instructionsPt: value)),
+                          onChanged: (value) => _update(
+                            _draft.withTranslation(
+                              languageCode: languageCode,
+                              instructions: value,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 12),
                         TextFormField(
@@ -272,7 +263,11 @@ class _ActivityEditorState extends ConsumerState<_ActivityEditor> {
   Future<void> _save() async {
     final errors = await ref
         .read(activityEditorControllerProvider)
-        .save(draft: _draft, existing: widget.activity);
+        .save(
+          draft: _draft,
+          languageCode: Localizations.localeOf(context).languageCode,
+          existing: widget.activity,
+        );
     if (!mounted) {
       return;
     }
@@ -296,8 +291,7 @@ class _ActivityEditorState extends ConsumerState<_ActivityEditor> {
   String _errorLabel(BuildContext context, ActivityEditorError error) {
     final l10n = context.l10n;
     return switch (error) {
-      ActivityEditorError.titleEnRequired => l10n.titleEnRequired,
-      ActivityEditorError.titlePtRequired => l10n.titlePtRequired,
+      ActivityEditorError.titleRequired => l10n.titleRequired,
       ActivityEditorError.durationMustBePositive => l10n.durationValidation,
       ActivityEditorError.urlInvalid => l10n.urlInvalid,
       ActivityEditorError.imageRequired => l10n.imageRequired,
@@ -321,6 +315,7 @@ class _TextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: ValueKey(label),
       initialValue: value,
       decoration: InputDecoration(labelText: label),
       maxLines: maxLines,

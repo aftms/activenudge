@@ -7,12 +7,7 @@ import 'activity_image_service.dart';
 
 class ActivityDraft {
   const ActivityDraft({
-    required this.titleEn,
-    required this.titlePt,
-    required this.descriptionEn,
-    required this.descriptionPt,
-    required this.instructionsEn,
-    required this.instructionsPt,
+    required this.translations,
     required this.suggestedDurationMinutes,
     required this.category,
     required this.intensity,
@@ -24,12 +19,7 @@ class ActivityDraft {
 
   factory ActivityDraft.empty() {
     return const ActivityDraft(
-      titleEn: '',
-      titlePt: '',
-      descriptionEn: '',
-      descriptionPt: '',
-      instructionsEn: '',
-      instructionsPt: '',
+      translations: <String, ActivityTranslation>{},
       suggestedDurationMinutes: 5,
       category: ActivityCategory.mobility,
       intensity: ActivityIntensity.low,
@@ -40,12 +30,7 @@ class ActivityDraft {
 
   factory ActivityDraft.fromActivity(Activity activity) {
     return ActivityDraft(
-      titleEn: activity.titleEn,
-      titlePt: activity.titlePt,
-      descriptionEn: activity.descriptionEn,
-      descriptionPt: activity.descriptionPt,
-      instructionsEn: activity.instructionsEn,
-      instructionsPt: activity.instructionsPt,
+      translations: activity.translations,
       suggestedDurationMinutes: activity.suggestedDurationMinutes,
       category: activity.category,
       intensity: activity.intensity,
@@ -56,12 +41,7 @@ class ActivityDraft {
     );
   }
 
-  final String titleEn;
-  final String titlePt;
-  final String descriptionEn;
-  final String descriptionPt;
-  final String instructionsEn;
-  final String instructionsPt;
+  final Map<String, ActivityTranslation> translations;
   final int suggestedDurationMinutes;
   final ActivityCategory category;
   final ActivityIntensity intensity;
@@ -70,13 +50,38 @@ class ActivityDraft {
   final String? imagePath;
   final bool isActive;
 
+  ActivityTranslation translationForLanguageCode(String languageCode) {
+    return translations[languageCode] ??
+        const ActivityTranslation(
+          languageCode: 'en',
+          title: '',
+          description: '',
+          instructions: '',
+        );
+  }
+
+  ActivityDraft withTranslation({
+    required String languageCode,
+    String? title,
+    String? description,
+    String? instructions,
+  }) {
+    final current = translationForLanguageCode(languageCode);
+    return copyWith(
+      translations: <String, ActivityTranslation>{
+        ...translations,
+        languageCode: ActivityTranslation(
+          languageCode: languageCode,
+          title: title ?? current.title,
+          description: description ?? current.description,
+          instructions: instructions ?? current.instructions,
+        ),
+      },
+    );
+  }
+
   ActivityDraft copyWith({
-    String? titleEn,
-    String? titlePt,
-    String? descriptionEn,
-    String? descriptionPt,
-    String? instructionsEn,
-    String? instructionsPt,
+    Map<String, ActivityTranslation>? translations,
     int? suggestedDurationMinutes,
     ActivityCategory? category,
     ActivityIntensity? intensity,
@@ -88,12 +93,7 @@ class ActivityDraft {
     bool? isActive,
   }) {
     return ActivityDraft(
-      titleEn: titleEn ?? this.titleEn,
-      titlePt: titlePt ?? this.titlePt,
-      descriptionEn: descriptionEn ?? this.descriptionEn,
-      descriptionPt: descriptionPt ?? this.descriptionPt,
-      instructionsEn: instructionsEn ?? this.instructionsEn,
-      instructionsPt: instructionsPt ?? this.instructionsPt,
+      translations: translations ?? this.translations,
       suggestedDurationMinutes:
           suggestedDurationMinutes ?? this.suggestedDurationMinutes,
       category: category ?? this.category,
@@ -107,8 +107,7 @@ class ActivityDraft {
 }
 
 enum ActivityEditorError {
-  titleEnRequired,
-  titlePtRequired,
+  titleRequired,
   durationMustBePositive,
   urlInvalid,
   imageRequired,
@@ -129,13 +128,13 @@ class ActivityEditorController {
 
   Future<String?> pickImage() => _imageService.pickAndStoreImage();
 
-  List<ActivityEditorError> validate(ActivityDraft draft) {
+  List<ActivityEditorError> validate(
+    ActivityDraft draft, {
+    required String languageCode,
+  }) {
     final errors = <ActivityEditorError>[];
-    if (draft.titleEn.trim().isEmpty) {
-      errors.add(ActivityEditorError.titleEnRequired);
-    }
-    if (draft.titlePt.trim().isEmpty) {
-      errors.add(ActivityEditorError.titlePtRequired);
+    if (draft.translationForLanguageCode(languageCode).title.trim().isEmpty) {
+      errors.add(ActivityEditorError.titleRequired);
     }
     if (draft.suggestedDurationMinutes <= 0) {
       errors.add(ActivityEditorError.durationMustBePositive);
@@ -154,34 +153,37 @@ class ActivityEditorController {
 
   Future<List<ActivityEditorError>> save({
     required ActivityDraft draft,
+    required String languageCode,
     Activity? existing,
   }) async {
-    final errors = validate(draft);
+    final errors = validate(draft, languageCode: languageCode);
     if (errors.isNotEmpty) {
       return errors;
     }
 
     final now = _dateTimeProvider.now();
+    final currentTranslation = draft.translationForLanguageCode(languageCode);
+    final translations = <String, ActivityTranslation>{
+      ...?existing?.translations,
+      ...draft.translations,
+      languageCode: ActivityTranslation(
+        languageCode: languageCode,
+        title: currentTranslation.title.trim(),
+        description: currentTranslation.description.trim(),
+        instructions: currentTranslation.instructions.trim(),
+      ),
+    };
+    translations.removeWhere(
+      (key, value) =>
+          value.title.trim().isEmpty &&
+          value.description.trim().isEmpty &&
+          value.instructions.trim().isEmpty,
+    );
+
     final activity = Activity(
-      stableId: existing?.stableId ?? _createStableId(draft.titleEn, now),
-      translations: <String, ActivityTranslation>{
-        'en': ActivityTranslation(
-          languageCode: 'en',
-          title: draft.titleEn.trim(),
-          description: draft.descriptionEn.trim(),
-          instructions: draft.instructionsEn.trim(),
-        ),
-        'pt': ActivityTranslation(
-          languageCode: 'pt',
-          title: draft.titlePt.trim(),
-          description: draft.descriptionPt.trim(),
-          instructions: draft.instructionsPt.trim(),
-        ),
-        for (final entry
-            in existing?.translations.entries ??
-                const Iterable<MapEntry<String, ActivityTranslation>>.empty())
-          if (entry.key != 'en' && entry.key != 'pt') entry.key: entry.value,
-      },
+      stableId:
+          existing?.stableId ?? _createStableId(currentTranslation.title, now),
+      translations: translations,
       suggestedDurationMinutes: draft.suggestedDurationMinutes,
       category: draft.category,
       intensity: draft.intensity,

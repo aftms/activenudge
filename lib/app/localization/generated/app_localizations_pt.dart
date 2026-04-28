@@ -57,16 +57,25 @@ class AppLocalizationsPt extends AppLocalizations {
   String get titlePortuguese => 'Título em português';
 
   @override
+  String get activityTitle => 'Título';
+
+  @override
   String get descriptionEnglish => 'Descrição em inglês';
 
   @override
   String get descriptionPortuguese => 'Descrição em português';
 
   @override
+  String get activityDescription => 'Descrição';
+
+  @override
   String get instructionsEnglish => 'Instruções em inglês';
 
   @override
   String get instructionsPortuguese => 'Instruções em português';
+
+  @override
+  String get activityInstructions => 'Instruções';
 
   @override
   String get category => 'Categoria';
@@ -112,6 +121,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get titlePtRequired => 'O título em português é obrigatório.';
+
+  @override
+  String get titleRequired => 'O título é obrigatório.';
 
   @override
   String get urlInvalid => 'Introduza uma URL http ou https válida.';

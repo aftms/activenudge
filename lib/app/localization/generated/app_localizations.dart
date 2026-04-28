@@ -194,6 +194,12 @@ abstract class AppLocalizations {
   /// **'Title in Portuguese'**
   String get titlePortuguese;
 
+  /// No description provided for @activityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get activityTitle;
+
   /// No description provided for @descriptionEnglish.
   ///
   /// In en, this message translates to:
@@ -206,6 +212,12 @@ abstract class AppLocalizations {
   /// **'Description in Portuguese'**
   String get descriptionPortuguese;
 
+  /// No description provided for @activityDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get activityDescription;
+
   /// No description provided for @instructionsEnglish.
   ///
   /// In en, this message translates to:
@@ -217,6 +229,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Instructions in Portuguese'**
   String get instructionsPortuguese;
+
+  /// No description provided for @activityInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions'**
+  String get activityInstructions;
 
   /// No description provided for @category.
   ///
@@ -307,6 +325,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Portuguese title is required.'**
   String get titlePtRequired;
+
+  /// No description provided for @titleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required.'**
+  String get titleRequired;
 
   /// No description provided for @urlInvalid.
   ///
