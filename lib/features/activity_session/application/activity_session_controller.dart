@@ -88,8 +88,10 @@ class ActivitySessionController extends StateNotifier<ActivitySessionState> {
         entryId:
             '${state.activity.stableId}-${startedAt.microsecondsSinceEpoch}',
         activityStableId: state.activity.stableId,
-        activityTitleEn: state.activity.titleEn,
-        activityTitlePt: state.activity.titlePt,
+        activityTitleByLanguage: state.activity.translations.map(
+          (languageCode, translation) =>
+              MapEntry(languageCode, translation.title),
+        ),
         startedAt: startedAt,
         endedAt: now,
         plannedDurationMinutes: state.plannedDurationMinutes,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:isar_community/isar.dart';
 
 import '../../domain/entities/history_entry.dart';
@@ -14,8 +16,7 @@ class HistoryEntryModel {
   @Index()
   late String activityStableId;
 
-  late String activityTitleEn;
-  late String activityTitlePt;
+  late String activityTitleByLanguageJson;
 
   @Index()
   late DateTime startedAt;
@@ -34,8 +35,9 @@ class HistoryEntryModel {
     return HistoryEntry(
       entryId: entryId,
       activityStableId: activityStableId,
-      activityTitleEn: activityTitleEn,
-      activityTitlePt: activityTitlePt,
+      activityTitleByLanguage: _decodeTitleSnapshot(
+        activityTitleByLanguageJson,
+      ),
       startedAt: startedAt,
       endedAt: endedAt,
       plannedDurationMinutes: plannedDurationMinutes,
@@ -49,13 +51,20 @@ class HistoryEntryModel {
     return HistoryEntryModel()
       ..entryId = entry.entryId
       ..activityStableId = entry.activityStableId
-      ..activityTitleEn = entry.activityTitleEn
-      ..activityTitlePt = entry.activityTitlePt
+      ..activityTitleByLanguageJson = jsonEncode(entry.activityTitleByLanguage)
       ..startedAt = entry.startedAt
       ..endedAt = entry.endedAt
       ..plannedDurationMinutes = entry.plannedDurationMinutes
       ..effectiveDurationSeconds = entry.effectiveDurationSeconds
       ..result = entry.result
       ..origin = entry.origin;
+  }
+
+  Map<String, String> _decodeTitleSnapshot(String value) {
+    final decoded = jsonDecode(value);
+    if (decoded is! Map<String, dynamic>) {
+      return const <String, String>{};
+    }
+    return decoded.map((key, value) => MapEntry(key, value?.toString() ?? ''));
   }
 }

@@ -35,8 +35,10 @@ HistoryEntry _history(String activityId) {
   return HistoryEntry(
     entryId: activityId,
     activityStableId: activityId,
-    activityTitleEn: activityId,
-    activityTitlePt: activityId,
+    activityTitleByLanguage: <String, String>{
+      'en': activityId,
+      'pt': activityId,
+    },
     startedAt: DateTime(2026, 4, 28),
     plannedDurationMinutes: 5,
     effectiveDurationSeconds: 60,

@@ -16,7 +16,10 @@ class IsarActivityRepository implements ActivityRepository {
 
   @override
   Future<List<Activity>> getAllActivities() async {
-    final models = await _isar.activityModels.where().sortByTitleEn().findAll();
+    final models = await _isar.activityModels
+        .where()
+        .sortByStableId()
+        .findAll();
     return models.map((model) => model.toEntity()).toList();
   }
 
@@ -25,7 +28,7 @@ class IsarActivityRepository implements ActivityRepository {
     final models = await _isar.activityModels
         .filter()
         .isActiveEqualTo(true)
-        .sortByTitleEn()
+        .sortByStableId()
         .findAll();
     return models.map((model) => model.toEntity()).toList();
   }
@@ -63,7 +66,7 @@ class IsarActivityRepository implements ActivityRepository {
 
   @override
   Stream<List<Activity>> watchAllActivities() async* {
-    final query = _isar.activityModels.where().sortByTitleEn();
+    final query = _isar.activityModels.where().sortByStableId();
     yield (await query.findAll()).map((model) => model.toEntity()).toList();
     await for (final models in query.watch(fireImmediately: false)) {
       yield models.map((model) => model.toEntity()).toList();
@@ -75,7 +78,7 @@ class IsarActivityRepository implements ActivityRepository {
     final query = _isar.activityModels
         .filter()
         .isActiveEqualTo(true)
-        .sortByTitleEn();
+        .sortByStableId();
     yield (await query.findAll()).map((model) => model.toEntity()).toList();
     await for (final models in query.watch(fireImmediately: false)) {
       yield models.map((model) => model.toEntity()).toList();

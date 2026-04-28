@@ -56,9 +56,7 @@ class HistoryScreen extends ConsumerWidget {
                         contentPadding: const EdgeInsets.all(16),
                         leading: const Icon(Icons.check_circle_outline),
                         title: Text(
-                          localeCode == 'pt'
-                              ? entry.activityTitlePt
-                              : entry.activityTitleEn,
+                          entry.activityTitleForLanguageCode(localeCode),
                         ),
                         subtitle: Text(
                           '${entry.result.label(context)} · ${entry.origin.label(context)}',

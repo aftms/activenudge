@@ -22,46 +22,41 @@ const HistoryEntryModelSchema = CollectionSchema(
       name: r'activityStableId',
       type: IsarType.string,
     ),
-    r'activityTitleEn': PropertySchema(
+    r'activityTitleByLanguageJson': PropertySchema(
       id: 1,
-      name: r'activityTitleEn',
-      type: IsarType.string,
-    ),
-    r'activityTitlePt': PropertySchema(
-      id: 2,
-      name: r'activityTitlePt',
+      name: r'activityTitleByLanguageJson',
       type: IsarType.string,
     ),
     r'effectiveDurationSeconds': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'effectiveDurationSeconds',
       type: IsarType.long,
     ),
     r'endedAt': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'endedAt',
       type: IsarType.dateTime,
     ),
-    r'entryId': PropertySchema(id: 5, name: r'entryId', type: IsarType.string),
+    r'entryId': PropertySchema(id: 4, name: r'entryId', type: IsarType.string),
     r'origin': PropertySchema(
-      id: 6,
+      id: 5,
       name: r'origin',
       type: IsarType.byte,
       enumMap: _HistoryEntryModeloriginEnumValueMap,
     ),
     r'plannedDurationMinutes': PropertySchema(
-      id: 7,
+      id: 6,
       name: r'plannedDurationMinutes',
       type: IsarType.long,
     ),
     r'result': PropertySchema(
-      id: 8,
+      id: 7,
       name: r'result',
       type: IsarType.byte,
       enumMap: _HistoryEntryModelresultEnumValueMap,
     ),
     r'startedAt': PropertySchema(
-      id: 9,
+      id: 8,
       name: r'startedAt',
       type: IsarType.dateTime,
     ),
@@ -129,8 +124,7 @@ int _historyEntryModelEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.activityStableId.length * 3;
-  bytesCount += 3 + object.activityTitleEn.length * 3;
-  bytesCount += 3 + object.activityTitlePt.length * 3;
+  bytesCount += 3 + object.activityTitleByLanguageJson.length * 3;
   bytesCount += 3 + object.entryId.length * 3;
   return bytesCount;
 }
@@ -142,15 +136,14 @@ void _historyEntryModelSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.activityStableId);
-  writer.writeString(offsets[1], object.activityTitleEn);
-  writer.writeString(offsets[2], object.activityTitlePt);
-  writer.writeLong(offsets[3], object.effectiveDurationSeconds);
-  writer.writeDateTime(offsets[4], object.endedAt);
-  writer.writeString(offsets[5], object.entryId);
-  writer.writeByte(offsets[6], object.origin.index);
-  writer.writeLong(offsets[7], object.plannedDurationMinutes);
-  writer.writeByte(offsets[8], object.result.index);
-  writer.writeDateTime(offsets[9], object.startedAt);
+  writer.writeString(offsets[1], object.activityTitleByLanguageJson);
+  writer.writeLong(offsets[2], object.effectiveDurationSeconds);
+  writer.writeDateTime(offsets[3], object.endedAt);
+  writer.writeString(offsets[4], object.entryId);
+  writer.writeByte(offsets[5], object.origin.index);
+  writer.writeLong(offsets[6], object.plannedDurationMinutes);
+  writer.writeByte(offsets[7], object.result.index);
+  writer.writeDateTime(offsets[8], object.startedAt);
 }
 
 HistoryEntryModel _historyEntryModelDeserialize(
@@ -161,20 +154,19 @@ HistoryEntryModel _historyEntryModelDeserialize(
 ) {
   final object = HistoryEntryModel();
   object.activityStableId = reader.readString(offsets[0]);
-  object.activityTitleEn = reader.readString(offsets[1]);
-  object.activityTitlePt = reader.readString(offsets[2]);
-  object.effectiveDurationSeconds = reader.readLong(offsets[3]);
-  object.endedAt = reader.readDateTimeOrNull(offsets[4]);
-  object.entryId = reader.readString(offsets[5]);
+  object.activityTitleByLanguageJson = reader.readString(offsets[1]);
+  object.effectiveDurationSeconds = reader.readLong(offsets[2]);
+  object.endedAt = reader.readDateTimeOrNull(offsets[3]);
+  object.entryId = reader.readString(offsets[4]);
   object.id = id;
   object.origin =
-      _HistoryEntryModeloriginValueEnumMap[reader.readByteOrNull(offsets[6])] ??
+      _HistoryEntryModeloriginValueEnumMap[reader.readByteOrNull(offsets[5])] ??
       SessionOrigin.reminder;
-  object.plannedDurationMinutes = reader.readLong(offsets[7]);
+  object.plannedDurationMinutes = reader.readLong(offsets[6]);
   object.result =
-      _HistoryEntryModelresultValueEnumMap[reader.readByteOrNull(offsets[8])] ??
+      _HistoryEntryModelresultValueEnumMap[reader.readByteOrNull(offsets[7])] ??
       SessionResult.completed;
-  object.startedAt = reader.readDateTime(offsets[9]);
+  object.startedAt = reader.readDateTime(offsets[8]);
   return object;
 }
 
@@ -190,28 +182,26 @@ P _historyEntryModelDeserializeProp<P>(
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
-    case 3:
       return (reader.readLong(offset)) as P;
-    case 4:
+    case 3:
       return (reader.readDateTimeOrNull(offset)) as P;
-    case 5:
+    case 4:
       return (reader.readString(offset)) as P;
-    case 6:
+    case 5:
       return (_HistoryEntryModeloriginValueEnumMap[reader.readByteOrNull(
                 offset,
               )] ??
               SessionOrigin.reminder)
           as P;
-    case 7:
+    case 6:
       return (reader.readLong(offset)) as P;
-    case 8:
+    case 7:
       return (_HistoryEntryModelresultValueEnumMap[reader.readByteOrNull(
                 offset,
               )] ??
               SessionResult.completed)
           as P;
-    case 9:
+    case 8:
       return (reader.readDateTime(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -748,11 +738,14 @@ extension HistoryEntryModelQueryFilter
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnEqualTo(String value, {bool caseSensitive = true}) {
+  activityTitleByLanguageJsonEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(
-          property: r'activityTitleEn',
+          property: r'activityTitleByLanguageJson',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -761,7 +754,7 @@ extension HistoryEntryModelQueryFilter
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnGreaterThan(
+  activityTitleByLanguageJsonGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -770,7 +763,7 @@ extension HistoryEntryModelQueryFilter
       return query.addFilterCondition(
         FilterCondition.greaterThan(
           include: include,
-          property: r'activityTitleEn',
+          property: r'activityTitleByLanguageJson',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -779,7 +772,7 @@ extension HistoryEntryModelQueryFilter
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnLessThan(
+  activityTitleByLanguageJsonLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -788,7 +781,7 @@ extension HistoryEntryModelQueryFilter
       return query.addFilterCondition(
         FilterCondition.lessThan(
           include: include,
-          property: r'activityTitleEn',
+          property: r'activityTitleByLanguageJson',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -797,7 +790,7 @@ extension HistoryEntryModelQueryFilter
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnBetween(
+  activityTitleByLanguageJsonBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -807,7 +800,7 @@ extension HistoryEntryModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.between(
-          property: r'activityTitleEn',
+          property: r'activityTitleByLanguageJson',
           lower: lower,
           includeLower: includeLower,
           upper: upper,
@@ -819,11 +812,14 @@ extension HistoryEntryModelQueryFilter
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnStartsWith(String value, {bool caseSensitive = true}) {
+  activityTitleByLanguageJsonStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.startsWith(
-          property: r'activityTitleEn',
+          property: r'activityTitleByLanguageJson',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -832,11 +828,14 @@ extension HistoryEntryModelQueryFilter
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnEndsWith(String value, {bool caseSensitive = true}) {
+  activityTitleByLanguageJsonEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.endsWith(
-          property: r'activityTitleEn',
+          property: r'activityTitleByLanguageJson',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -845,11 +844,14 @@ extension HistoryEntryModelQueryFilter
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnContains(String value, {bool caseSensitive = true}) {
+  activityTitleByLanguageJsonContains(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.contains(
-          property: r'activityTitleEn',
+          property: r'activityTitleByLanguageJson',
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -858,11 +860,14 @@ extension HistoryEntryModelQueryFilter
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnMatches(String pattern, {bool caseSensitive = true}) {
+  activityTitleByLanguageJsonMatches(
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.matches(
-          property: r'activityTitleEn',
+          property: r'activityTitleByLanguageJson',
           wildcard: pattern,
           caseSensitive: caseSensitive,
         ),
@@ -871,160 +876,25 @@ extension HistoryEntryModelQueryFilter
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'activityTitleEn', value: ''),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitleEnIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(property: r'activityTitleEn', value: ''),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtEqualTo(String value, {bool caseSensitive = true}) {
+  activityTitleByLanguageJsonIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(
-          property: r'activityTitlePt',
-          value: value,
-          caseSensitive: caseSensitive,
+          property: r'activityTitleByLanguageJson',
+          value: '',
         ),
       );
     });
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
+  activityTitleByLanguageJsonIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(
-          include: include,
-          property: r'activityTitlePt',
-          value: value,
-          caseSensitive: caseSensitive,
+          property: r'activityTitleByLanguageJson',
+          value: '',
         ),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.lessThan(
-          include: include,
-          property: r'activityTitlePt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.between(
-          property: r'activityTitlePt',
-          lower: lower,
-          includeLower: includeLower,
-          upper: upper,
-          includeUpper: includeUpper,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtStartsWith(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.startsWith(
-          property: r'activityTitlePt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtEndsWith(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.endsWith(
-          property: r'activityTitlePt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.contains(
-          property: r'activityTitlePt',
-          value: value,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.matches(
-          property: r'activityTitlePt',
-          wildcard: pattern,
-          caseSensitive: caseSensitive,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'activityTitlePt', value: ''),
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterFilterCondition>
-  activityTitlePtIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(property: r'activityTitlePt', value: ''),
       );
     });
   }
@@ -1603,30 +1473,16 @@ extension HistoryEntryModelQuerySortBy
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterSortBy>
-  sortByActivityTitleEn() {
+  sortByActivityTitleByLanguageJson() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'activityTitleEn', Sort.asc);
+      return query.addSortBy(r'activityTitleByLanguageJson', Sort.asc);
     });
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterSortBy>
-  sortByActivityTitleEnDesc() {
+  sortByActivityTitleByLanguageJsonDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'activityTitleEn', Sort.desc);
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterSortBy>
-  sortByActivityTitlePt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'activityTitlePt', Sort.asc);
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterSortBy>
-  sortByActivityTitlePtDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'activityTitlePt', Sort.desc);
+      return query.addSortBy(r'activityTitleByLanguageJson', Sort.desc);
     });
   }
 
@@ -1746,30 +1602,16 @@ extension HistoryEntryModelQuerySortThenBy
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterSortBy>
-  thenByActivityTitleEn() {
+  thenByActivityTitleByLanguageJson() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'activityTitleEn', Sort.asc);
+      return query.addSortBy(r'activityTitleByLanguageJson', Sort.asc);
     });
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterSortBy>
-  thenByActivityTitleEnDesc() {
+  thenByActivityTitleByLanguageJsonDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'activityTitleEn', Sort.desc);
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterSortBy>
-  thenByActivityTitlePt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'activityTitlePt', Sort.asc);
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QAfterSortBy>
-  thenByActivityTitlePtDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'activityTitlePt', Sort.desc);
+      return query.addSortBy(r'activityTitleByLanguageJson', Sort.desc);
     });
   }
 
@@ -1898,20 +1740,10 @@ extension HistoryEntryModelQueryWhereDistinct
   }
 
   QueryBuilder<HistoryEntryModel, HistoryEntryModel, QDistinct>
-  distinctByActivityTitleEn({bool caseSensitive = true}) {
+  distinctByActivityTitleByLanguageJson({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(
-        r'activityTitleEn',
-        caseSensitive: caseSensitive,
-      );
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, HistoryEntryModel, QDistinct>
-  distinctByActivityTitlePt({bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(
-        r'activityTitlePt',
+        r'activityTitleByLanguageJson',
         caseSensitive: caseSensitive,
       );
     });
@@ -1983,16 +1815,9 @@ extension HistoryEntryModelQueryProperty
   }
 
   QueryBuilder<HistoryEntryModel, String, QQueryOperations>
-  activityTitleEnProperty() {
+  activityTitleByLanguageJsonProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'activityTitleEn');
-    });
-  }
-
-  QueryBuilder<HistoryEntryModel, String, QQueryOperations>
-  activityTitlePtProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'activityTitlePt');
+      return query.addPropertyName(r'activityTitleByLanguageJson');
     });
   }
 

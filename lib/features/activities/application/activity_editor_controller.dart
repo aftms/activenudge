@@ -164,12 +164,24 @@ class ActivityEditorController {
     final now = _dateTimeProvider.now();
     final activity = Activity(
       stableId: existing?.stableId ?? _createStableId(draft.titleEn, now),
-      titleEn: draft.titleEn.trim(),
-      titlePt: draft.titlePt.trim(),
-      descriptionEn: draft.descriptionEn.trim(),
-      descriptionPt: draft.descriptionPt.trim(),
-      instructionsEn: draft.instructionsEn.trim(),
-      instructionsPt: draft.instructionsPt.trim(),
+      translations: <String, ActivityTranslation>{
+        'en': ActivityTranslation(
+          languageCode: 'en',
+          title: draft.titleEn.trim(),
+          description: draft.descriptionEn.trim(),
+          instructions: draft.instructionsEn.trim(),
+        ),
+        'pt': ActivityTranslation(
+          languageCode: 'pt',
+          title: draft.titlePt.trim(),
+          description: draft.descriptionPt.trim(),
+          instructions: draft.instructionsPt.trim(),
+        ),
+        for (final entry
+            in existing?.translations.entries ??
+                const Iterable<MapEntry<String, ActivityTranslation>>.empty())
+          if (entry.key != 'en' && entry.key != 'pt') entry.key: entry.value,
+      },
       suggestedDurationMinutes: draft.suggestedDurationMinutes,
       category: draft.category,
       intensity: draft.intensity,

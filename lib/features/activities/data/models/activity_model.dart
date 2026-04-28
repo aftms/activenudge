@@ -11,12 +11,7 @@ class ActivityModel {
   @Index(unique: true, replace: true)
   late String stableId;
 
-  late String titleEn;
-  late String titlePt;
-  late String descriptionEn;
-  late String descriptionPt;
-  late String instructionsEn;
-  late String instructionsPt;
+  late List<ActivityTranslationModel> translations;
   late int suggestedDurationMinutes;
 
   @enumerated
@@ -37,12 +32,10 @@ class ActivityModel {
   Activity toEntity() {
     return Activity(
       stableId: stableId,
-      titleEn: titleEn,
-      titlePt: titlePt,
-      descriptionEn: descriptionEn,
-      descriptionPt: descriptionPt,
-      instructionsEn: instructionsEn,
-      instructionsPt: instructionsPt,
+      translations: {
+        for (final translation in translations)
+          translation.languageCode: translation.toEntity(),
+      },
       suggestedDurationMinutes: suggestedDurationMinutes,
       category: category,
       intensity: intensity,
@@ -58,12 +51,9 @@ class ActivityModel {
   static ActivityModel fromEntity(Activity activity) {
     return ActivityModel()
       ..stableId = activity.stableId
-      ..titleEn = activity.titleEn
-      ..titlePt = activity.titlePt
-      ..descriptionEn = activity.descriptionEn
-      ..descriptionPt = activity.descriptionPt
-      ..instructionsEn = activity.instructionsEn
-      ..instructionsPt = activity.instructionsPt
+      ..translations = activity.translations.values
+          .map(ActivityTranslationModel.fromEntity)
+          .toList()
       ..suggestedDurationMinutes = activity.suggestedDurationMinutes
       ..category = activity.category
       ..intensity = activity.intensity
@@ -73,5 +63,30 @@ class ActivityModel {
       ..isActive = activity.isActive
       ..createdAt = activity.createdAt
       ..updatedAt = activity.updatedAt;
+  }
+}
+
+@embedded
+class ActivityTranslationModel {
+  late String languageCode;
+  late String title;
+  late String description;
+  late String instructions;
+
+  ActivityTranslation toEntity() {
+    return ActivityTranslation(
+      languageCode: languageCode,
+      title: title,
+      description: description,
+      instructions: instructions,
+    );
+  }
+
+  static ActivityTranslationModel fromEntity(ActivityTranslation translation) {
+    return ActivityTranslationModel()
+      ..languageCode = translation.languageCode
+      ..title = translation.title
+      ..description = translation.description
+      ..instructions = translation.instructions;
   }
 }

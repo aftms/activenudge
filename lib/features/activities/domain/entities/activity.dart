@@ -4,15 +4,38 @@ enum ActivityIntensity { low, medium, high }
 
 enum ActivityContentType { text, image, externalLink, externalVideo }
 
+class ActivityTranslation {
+  const ActivityTranslation({
+    required this.languageCode,
+    required this.title,
+    required this.description,
+    required this.instructions,
+  });
+
+  final String languageCode;
+  final String title;
+  final String description;
+  final String instructions;
+
+  ActivityTranslation copyWith({
+    String? languageCode,
+    String? title,
+    String? description,
+    String? instructions,
+  }) {
+    return ActivityTranslation(
+      languageCode: languageCode ?? this.languageCode,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      instructions: instructions ?? this.instructions,
+    );
+  }
+}
+
 class Activity {
   const Activity({
     required this.stableId,
-    required this.titleEn,
-    required this.titlePt,
-    required this.descriptionEn,
-    required this.descriptionPt,
-    required this.instructionsEn,
-    required this.instructionsPt,
+    required this.translations,
     required this.suggestedDurationMinutes,
     required this.category,
     required this.intensity,
@@ -25,12 +48,7 @@ class Activity {
   });
 
   final String stableId;
-  final String titleEn;
-  final String titlePt;
-  final String descriptionEn;
-  final String descriptionPt;
-  final String instructionsEn;
-  final String instructionsPt;
+  final Map<String, ActivityTranslation> translations;
   final int suggestedDurationMinutes;
   final ActivityCategory category;
   final ActivityIntensity intensity;
@@ -41,26 +59,40 @@ class Activity {
   final DateTime createdAt;
   final DateTime updatedAt;
 
+  String get titleEn => titleForLanguageCode('en');
+  String get titlePt => titleForLanguageCode('pt');
+  String get descriptionEn => descriptionForLanguageCode('en');
+  String get descriptionPt => descriptionForLanguageCode('pt');
+  String get instructionsEn => instructionsForLanguageCode('en');
+  String get instructionsPt => instructionsForLanguageCode('pt');
+
+  ActivityTranslation translationForLanguageCode(String languageCode) {
+    return translations[languageCode] ??
+        translations['en'] ??
+        (translations.isEmpty ? null : translations.values.first) ??
+        const ActivityTranslation(
+          languageCode: 'en',
+          title: '',
+          description: '',
+          instructions: '',
+        );
+  }
+
   String titleForLanguageCode(String languageCode) {
-    return languageCode == 'pt' ? titlePt : titleEn;
+    return translationForLanguageCode(languageCode).title;
   }
 
   String descriptionForLanguageCode(String languageCode) {
-    return languageCode == 'pt' ? descriptionPt : descriptionEn;
+    return translationForLanguageCode(languageCode).description;
   }
 
   String instructionsForLanguageCode(String languageCode) {
-    return languageCode == 'pt' ? instructionsPt : instructionsEn;
+    return translationForLanguageCode(languageCode).instructions;
   }
 
   Activity copyWith({
     String? stableId,
-    String? titleEn,
-    String? titlePt,
-    String? descriptionEn,
-    String? descriptionPt,
-    String? instructionsEn,
-    String? instructionsPt,
+    Map<String, ActivityTranslation>? translations,
     int? suggestedDurationMinutes,
     ActivityCategory? category,
     ActivityIntensity? intensity,
@@ -75,12 +107,7 @@ class Activity {
   }) {
     return Activity(
       stableId: stableId ?? this.stableId,
-      titleEn: titleEn ?? this.titleEn,
-      titlePt: titlePt ?? this.titlePt,
-      descriptionEn: descriptionEn ?? this.descriptionEn,
-      descriptionPt: descriptionPt ?? this.descriptionPt,
-      instructionsEn: instructionsEn ?? this.instructionsEn,
-      instructionsPt: instructionsPt ?? this.instructionsPt,
+      translations: translations ?? this.translations,
       suggestedDurationMinutes:
           suggestedDurationMinutes ?? this.suggestedDurationMinutes,
       category: category ?? this.category,

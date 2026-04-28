@@ -40,8 +40,10 @@ HistoryEntry _entry({
   return HistoryEntry(
     entryId: startedAt.microsecondsSinceEpoch.toString(),
     activityStableId: 'neck_stretch',
-    activityTitleEn: 'Neck stretch',
-    activityTitlePt: 'Alongamento cervical',
+    activityTitleByLanguage: const <String, String>{
+      'en': 'Neck stretch',
+      'pt': 'Alongamento cervical',
+    },
     startedAt: startedAt,
     endedAt: startedAt.add(Duration(seconds: seconds)),
     plannedDurationMinutes: 5,
