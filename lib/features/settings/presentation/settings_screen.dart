@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/providers.dart';
 import '../../../app/router.dart';
+import '../../../shared/extensions/app_language_labels.dart';
 import '../../../shared/extensions/build_context_l10n.dart';
 import '../../../shared/widgets/app_scaffold.dart';
 import '../application/settings_controller.dart';
@@ -94,18 +95,11 @@ class _SettingsForm extends StatelessWidget {
                         initialValue: settings.language,
                         decoration: InputDecoration(labelText: l10n.language),
                         items: <DropdownMenuItem<AppLanguage>>[
-                          DropdownMenuItem(
-                            value: AppLanguage.system,
-                            child: Text(l10n.systemDefault),
-                          ),
-                          DropdownMenuItem(
-                            value: AppLanguage.english,
-                            child: Text(l10n.english),
-                          ),
-                          DropdownMenuItem(
-                            value: AppLanguage.portuguese,
-                            child: Text(l10n.portuguese),
-                          ),
+                          for (final language in AppLanguage.values)
+                            DropdownMenuItem(
+                              value: language,
+                              child: Text(language.flaggedLabel(context)),
+                            ),
                         ],
                         onChanged: (value) {
                           if (value != null) {
