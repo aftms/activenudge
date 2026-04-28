@@ -69,13 +69,6 @@ class _ActivityEditorState extends ConsumerState<_ActivityEditor> {
     final translation = _draft.translationForLanguageCode(languageCode);
     return AppScaffold(
       selectedRoute: activitiesRoute,
-      actions: <Widget>[
-        TextButton.icon(
-          onPressed: () => context.goNamed(activitiesRoute),
-          icon: const Icon(Icons.close),
-          label: Text(l10n.cancel),
-        ),
-      ],
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Center(
