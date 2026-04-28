@@ -52,4 +52,45 @@ class Activity {
   String instructionsForLanguageCode(String languageCode) {
     return languageCode == 'pt' ? instructionsPt : instructionsEn;
   }
+
+  Activity copyWith({
+    String? stableId,
+    String? titleEn,
+    String? titlePt,
+    String? descriptionEn,
+    String? descriptionPt,
+    String? instructionsEn,
+    String? instructionsPt,
+    int? suggestedDurationMinutes,
+    ActivityCategory? category,
+    ActivityIntensity? intensity,
+    ActivityContentType? contentType,
+    String? url,
+    String? imagePath,
+    bool clearUrl = false,
+    bool clearImagePath = false,
+    bool? isActive,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return Activity(
+      stableId: stableId ?? this.stableId,
+      titleEn: titleEn ?? this.titleEn,
+      titlePt: titlePt ?? this.titlePt,
+      descriptionEn: descriptionEn ?? this.descriptionEn,
+      descriptionPt: descriptionPt ?? this.descriptionPt,
+      instructionsEn: instructionsEn ?? this.instructionsEn,
+      instructionsPt: instructionsPt ?? this.instructionsPt,
+      suggestedDurationMinutes:
+          suggestedDurationMinutes ?? this.suggestedDurationMinutes,
+      category: category ?? this.category,
+      intensity: intensity ?? this.intensity,
+      contentType: contentType ?? this.contentType,
+      url: clearUrl ? null : url ?? this.url,
+      imagePath: clearImagePath ? null : imagePath ?? this.imagePath,
+      isActive: isActive ?? this.isActive,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }

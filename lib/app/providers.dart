@@ -13,8 +13,10 @@ import '../core/services/permission_service.dart';
 import '../core/services/url_launcher_link_opener_service.dart';
 import '../core/time/date_time_provider.dart';
 import '../core/time/system_date_time_provider.dart';
+import '../features/activities/application/activity_image_service.dart';
 import '../features/activities/application/activity_seed_service.dart';
 import '../features/activities/data/repositories/isar_activity_repository.dart';
+import '../features/activities/data/services/file_picker_activity_image_service.dart';
 import '../features/activities/domain/repositories/activity_repository.dart';
 import '../features/activities/domain/services/activity_suggestion_service.dart';
 import '../features/history/application/history_summary_service.dart';
@@ -65,6 +67,10 @@ final activityRepositoryProvider = FutureProvider<ActivityRepository>((
   return IsarActivityRepository(isar);
 });
 
+final activityImageServiceProvider = Provider<ActivityImageService>(
+  (ref) => FilePickerActivityImageService(),
+);
+
 final settingsRepositoryProvider = FutureProvider<SettingsRepository>((
   ref,
 ) async {
@@ -90,6 +96,11 @@ final settingsStreamProvider = StreamProvider<AppSettings>((ref) async* {
 final activeActivitiesProvider = StreamProvider((ref) async* {
   final repository = await ref.watch(activityRepositoryProvider.future);
   yield* repository.watchActiveActivities();
+});
+
+final allActivitiesProvider = StreamProvider((ref) async* {
+  final repository = await ref.watch(activityRepositoryProvider.future);
+  yield* repository.watchAllActivities();
 });
 
 final recentHistoryProvider = StreamProvider<List<HistoryEntry>>((ref) async* {

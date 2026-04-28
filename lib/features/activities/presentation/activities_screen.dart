@@ -14,9 +14,16 @@ class ActivitiesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activitiesAsync = ref.watch(activeActivitiesProvider);
+    final activitiesAsync = ref.watch(allActivitiesProvider);
     return AppScaffold(
       selectedRoute: activitiesRoute,
+      actions: <Widget>[
+        IconButton(
+          tooltip: context.l10n.newActivity,
+          onPressed: () => context.goNamed(newActivityRoute),
+          icon: const Icon(Icons.add),
+        ),
+      ],
       child: activitiesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(child: Text(error.toString())),
@@ -70,10 +77,32 @@ class _ActivitiesList extends StatelessWidget {
                 ],
               ),
             ),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.goNamed(
-              activitySessionRoute,
-              pathParameters: <String, String>{'activityId': activity.stableId},
+            trailing: Wrap(
+              spacing: 4,
+              children: <Widget>[
+                IconButton(
+                  tooltip: context.l10n.edit,
+                  onPressed: () => context.goNamed(
+                    editActivityRoute,
+                    pathParameters: <String, String>{
+                      'activityId': activity.stableId,
+                    },
+                  ),
+                  icon: const Icon(Icons.edit_outlined),
+                ),
+                IconButton(
+                  tooltip: context.l10n.startNow,
+                  onPressed: activity.isActive
+                      ? () => context.goNamed(
+                          activitySessionRoute,
+                          pathParameters: <String, String>{
+                            'activityId': activity.stableId,
+                          },
+                        )
+                      : null,
+                  icon: const Icon(Icons.play_arrow),
+                ),
+              ],
             ),
           ),
         );

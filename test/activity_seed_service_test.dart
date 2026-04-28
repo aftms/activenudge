@@ -28,6 +28,9 @@ class _FakeActivityRepository implements ActivityRepository {
   Future<int> countActivities() async => activities.length;
 
   @override
+  Future<List<Activity>> getAllActivities() async => activities;
+
+  @override
   Future<List<Activity>> getActiveActivities() async => activities;
 
   @override
@@ -38,9 +41,20 @@ class _FakeActivityRepository implements ActivityRepository {
   }
 
   @override
+  Future<void> upsert(Activity activity) async {
+    upsertCalls++;
+    activities.add(activity);
+  }
+
+  @override
   Future<void> upsertMany(List<Activity> activities) async {
     upsertCalls++;
     this.activities.addAll(activities);
+  }
+
+  @override
+  Stream<List<Activity>> watchAllActivities() {
+    return Stream<List<Activity>>.value(activities);
   }
 
   @override

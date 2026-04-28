@@ -15,6 +15,12 @@ class IsarActivityRepository implements ActivityRepository {
   }
 
   @override
+  Future<List<Activity>> getAllActivities() async {
+    final models = await _isar.activityModels.where().sortByTitleEn().findAll();
+    return models.map((model) => model.toEntity()).toList();
+  }
+
+  @override
   Future<List<Activity>> getActiveActivities() async {
     final models = await _isar.activityModels
         .filter()
@@ -34,6 +40,11 @@ class IsarActivityRepository implements ActivityRepository {
   }
 
   @override
+  Future<void> upsert(Activity activity) async {
+    await upsertMany(<Activity>[activity]);
+  }
+
+  @override
   Future<void> upsertMany(List<Activity> activities) async {
     await _isar.writeTxn(() async {
       for (final activity in activities) {
@@ -48,6 +59,15 @@ class IsarActivityRepository implements ActivityRepository {
         await _isar.activityModels.put(model);
       }
     });
+  }
+
+  @override
+  Stream<List<Activity>> watchAllActivities() async* {
+    final query = _isar.activityModels.where().sortByTitleEn();
+    yield (await query.findAll()).map((model) => model.toEntity()).toList();
+    await for (final models in query.watch(fireImmediately: false)) {
+      yield models.map((model) => model.toEntity()).toList();
+    }
   }
 
   @override

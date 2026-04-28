@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -71,11 +73,12 @@ class _ActivitySession extends ConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(activity.instructionsForLanguageCode(localeCode)),
-                  if (activity.imagePath != null) ...<Widget>[
+                  if (activity.imagePath != null &&
+                      File(activity.imagePath!).existsSync()) ...<Widget>[
                     const SizedBox(height: 16),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(activity.imagePath!),
+                      child: Image.file(File(activity.imagePath!)),
                     ),
                   ],
                   const SizedBox(height: 24),

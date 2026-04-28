@@ -39,6 +39,87 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activities => 'Activities';
 
   @override
+  String get newActivity => 'New activity';
+
+  @override
+  String get editActivity => 'Edit activity';
+
+  @override
+  String get createActivity => 'Create activity';
+
+  @override
+  String get updateActivity => 'Update activity';
+
+  @override
+  String get titleEnglish => 'Title in English';
+
+  @override
+  String get titlePortuguese => 'Title in Portuguese';
+
+  @override
+  String get descriptionEnglish => 'Description in English';
+
+  @override
+  String get descriptionPortuguese => 'Description in Portuguese';
+
+  @override
+  String get instructionsEnglish => 'Instructions in English';
+
+  @override
+  String get instructionsPortuguese => 'Instructions in Portuguese';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get intensity => 'Intensity';
+
+  @override
+  String get contentType => 'Content type';
+
+  @override
+  String get textContent => 'Text';
+
+  @override
+  String get imageContent => 'Image';
+
+  @override
+  String get externalLinkContent => 'External link';
+
+  @override
+  String get externalVideoContent => 'External video';
+
+  @override
+  String get urlOptional => 'URL, optional';
+
+  @override
+  String get imageOptional => 'Image, optional';
+
+  @override
+  String get chooseImage => 'Choose image';
+
+  @override
+  String get removeImage => 'Remove image';
+
+  @override
+  String get isActive => 'Active';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get titleEnRequired => 'English title is required.';
+
+  @override
+  String get titlePtRequired => 'Portuguese title is required.';
+
+  @override
+  String get urlInvalid => 'Enter a valid http or https URL.';
+
+  @override
+  String get imageRequired => 'Choose an image for image content.';
+
+  @override
   String get language => 'Language';
 
   @override

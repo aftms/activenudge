@@ -14,6 +14,7 @@ The first version targets **Android** and **Windows desktop**. iOS, macOS, and W
 - flutter_local_notifications for local notifications
 - flutter_localizations, intl, and ARB files for internationalization
 - url_launcher for external links
+- file_picker for user-selected activity images
 - build_runner, Isar generator, freezed/json_serializable dependencies for code generation support
 
 The selected packages are free/open-source and suitable for commercial use. `isar_community` is Apache-2.0 and was selected over the older official Isar package because it is actively maintained and compatible with current Flutter/Dart.
@@ -52,6 +53,8 @@ Included activities:
 - Low-impact jumping jacks / Polichinelos leves
 - Breathing and posture / Respiração e postura
 - Wrist stretch / Alongamento dos punhos
+
+Users can also create and edit activities from the Activities screen. Custom activities support bilingual text, duration, category, intensity, content type, optional URLs for external links or videos, optional local images, and active/inactive status. Selected images are copied into the app support directory and referenced from the local database.
 
 ## Setup
 
@@ -116,7 +119,6 @@ The technical implementation has no recurring operating cost. Potential external
 
 ## Next Technical Steps
 
-- Add editable custom activities using the existing activity repository contract.
 - Add richer statistics through a separate `statistics` feature module.
 - Add backup/export without changing domain entities.
 - Add cloud sync later by introducing a remote data source behind existing repositories.

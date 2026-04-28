@@ -158,6 +158,168 @@ abstract class AppLocalizations {
   /// **'Activities'**
   String get activities;
 
+  /// No description provided for @newActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'New activity'**
+  String get newActivity;
+
+  /// No description provided for @editActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit activity'**
+  String get editActivity;
+
+  /// No description provided for @createActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Create activity'**
+  String get createActivity;
+
+  /// No description provided for @updateActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Update activity'**
+  String get updateActivity;
+
+  /// No description provided for @titleEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'Title in English'**
+  String get titleEnglish;
+
+  /// No description provided for @titlePortuguese.
+  ///
+  /// In en, this message translates to:
+  /// **'Title in Portuguese'**
+  String get titlePortuguese;
+
+  /// No description provided for @descriptionEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'Description in English'**
+  String get descriptionEnglish;
+
+  /// No description provided for @descriptionPortuguese.
+  ///
+  /// In en, this message translates to:
+  /// **'Description in Portuguese'**
+  String get descriptionPortuguese;
+
+  /// No description provided for @instructionsEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions in English'**
+  String get instructionsEnglish;
+
+  /// No description provided for @instructionsPortuguese.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions in Portuguese'**
+  String get instructionsPortuguese;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @intensity.
+  ///
+  /// In en, this message translates to:
+  /// **'Intensity'**
+  String get intensity;
+
+  /// No description provided for @contentType.
+  ///
+  /// In en, this message translates to:
+  /// **'Content type'**
+  String get contentType;
+
+  /// No description provided for @textContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get textContent;
+
+  /// No description provided for @imageContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Image'**
+  String get imageContent;
+
+  /// No description provided for @externalLinkContent.
+  ///
+  /// In en, this message translates to:
+  /// **'External link'**
+  String get externalLinkContent;
+
+  /// No description provided for @externalVideoContent.
+  ///
+  /// In en, this message translates to:
+  /// **'External video'**
+  String get externalVideoContent;
+
+  /// No description provided for @urlOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'URL, optional'**
+  String get urlOptional;
+
+  /// No description provided for @imageOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Image, optional'**
+  String get imageOptional;
+
+  /// No description provided for @chooseImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose image'**
+  String get chooseImage;
+
+  /// No description provided for @removeImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove image'**
+  String get removeImage;
+
+  /// No description provided for @isActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get isActive;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @titleEnRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'English title is required.'**
+  String get titleEnRequired;
+
+  /// No description provided for @titlePtRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Portuguese title is required.'**
+  String get titlePtRequired;
+
+  /// No description provided for @urlInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid http or https URL.'**
+  String get urlInvalid;
+
+  /// No description provided for @imageRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an image for image content.'**
+  String get imageRequired;
+
   /// No description provided for @language.
   ///
   /// In en, this message translates to:

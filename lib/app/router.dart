@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/activities/presentation/activities_screen.dart';
+import '../features/activities/presentation/activity_editor_screen.dart';
 import '../features/activity_session/presentation/activity_session_screen.dart';
 import '../features/history/presentation/history_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
@@ -13,6 +14,8 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 const homeRoute = 'home';
 const settingsRoute = 'settings';
 const activitiesRoute = 'activities';
+const newActivityRoute = 'newActivity';
+const editActivityRoute = 'editActivity';
 const activitySessionRoute = 'activitySession';
 const historyRoute = 'history';
 
@@ -35,6 +38,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/activities',
         name: activitiesRoute,
         builder: (context, state) => const ActivitiesScreen(),
+      ),
+      GoRoute(
+        path: '/activities/new',
+        name: newActivityRoute,
+        builder: (context, state) => const ActivityEditorScreen(),
+      ),
+      GoRoute(
+        path: '/activities/:activityId/edit',
+        name: editActivityRoute,
+        builder: (context, state) {
+          return ActivityEditorScreen(
+            activityId: state.pathParameters['activityId']!,
+          );
+        },
       ),
       GoRoute(
         path: '/activity-session/:activityId',
