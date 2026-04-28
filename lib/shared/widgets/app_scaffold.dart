@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/router.dart';
 import '../extensions/build_context_l10n.dart';
+import 'language_menu_button.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
@@ -21,6 +22,7 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final appBarActions = <Widget>[const LanguageMenuButton(), ...?actions];
     final destinations = <_Destination>[
       _Destination(homeRoute, '/', Icons.dashboard_outlined, l10n.appTitle),
       _Destination(
@@ -50,7 +52,7 @@ class AppScaffold extends StatelessWidget {
 
     if (wide) {
       return Scaffold(
-        appBar: AppBar(title: Text(l10n.appTitle), actions: actions),
+        appBar: AppBar(title: Text(l10n.appTitle), actions: appBarActions),
         floatingActionButton: floatingActionButton,
         body: Row(
           children: <Widget>[
@@ -76,7 +78,7 @@ class AppScaffold extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.appTitle), actions: actions),
+      appBar: AppBar(title: Text(l10n.appTitle), actions: appBarActions),
       floatingActionButton: floatingActionButton,
       body: child,
       bottomNavigationBar: NavigationBar(
