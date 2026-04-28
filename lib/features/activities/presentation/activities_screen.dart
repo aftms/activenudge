@@ -17,13 +17,12 @@ class ActivitiesScreen extends ConsumerWidget {
     final activitiesAsync = ref.watch(allActivitiesProvider);
     return AppScaffold(
       selectedRoute: activitiesRoute,
-      actions: <Widget>[
-        IconButton(
-          tooltip: context.l10n.newActivity,
-          onPressed: () => context.goNamed(newActivityRoute),
-          icon: const Icon(Icons.add),
-        ),
-      ],
+      floatingActionButton: FloatingActionButton.extended(
+        tooltip: context.l10n.newActivity,
+        onPressed: () => context.goNamed(newActivityRoute),
+        icon: const Icon(Icons.add),
+        label: Text(context.l10n.newActivity),
+      ),
       child: activitiesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(child: Text(error.toString())),

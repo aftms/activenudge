@@ -9,12 +9,14 @@ class AppScaffold extends StatelessWidget {
     required this.selectedRoute,
     required this.child,
     this.actions,
+    this.floatingActionButton,
     super.key,
   });
 
   final String selectedRoute;
   final Widget child;
   final List<Widget>? actions;
+  final Widget? floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class AppScaffold extends StatelessWidget {
     if (wide) {
       return Scaffold(
         appBar: AppBar(title: Text(l10n.appTitle), actions: actions),
+        floatingActionButton: floatingActionButton,
         body: Row(
           children: <Widget>[
             NavigationRail(
@@ -74,6 +77,7 @@ class AppScaffold extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.appTitle), actions: actions),
+      floatingActionButton: floatingActionButton,
       body: child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: safeSelectedIndex,
