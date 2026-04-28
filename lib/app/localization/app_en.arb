@@ -52,6 +52,7 @@
   "vibration": "Vibration",
   "autoOpenExternalContent": "Auto-open external content",
   "save": "Save",
+  "cancel": "Cancel",
   "minutes": "{count, plural, one{1 min} other{{count} min}}",
   "@minutes": {
     "placeholders": {

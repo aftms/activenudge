@@ -67,6 +67,13 @@ class _ActivityEditorState extends ConsumerState<_ActivityEditor> {
     final isEditing = widget.activity != null;
     return AppScaffold(
       selectedRoute: activitiesRoute,
+      actions: <Widget>[
+        TextButton.icon(
+          onPressed: () => context.goNamed(activitiesRoute),
+          icon: const Icon(Icons.close),
+          label: Text(l10n.cancel),
+        ),
+      ],
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Center(
@@ -228,12 +235,24 @@ class _ActivityEditorState extends ConsumerState<_ActivityEditor> {
                   ),
                 ],
                 const SizedBox(height: 16),
-                FilledButton.icon(
-                  onPressed: _save,
-                  icon: const Icon(Icons.save_outlined),
-                  label: Text(
-                    isEditing ? l10n.updateActivity : l10n.createActivity,
-                  ),
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  alignment: WrapAlignment.end,
+                  children: <Widget>[
+                    OutlinedButton.icon(
+                      onPressed: () => context.goNamed(activitiesRoute),
+                      icon: const Icon(Icons.close),
+                      label: Text(l10n.cancel),
+                    ),
+                    FilledButton.icon(
+                      onPressed: _save,
+                      icon: const Icon(Icons.save_outlined),
+                      label: Text(
+                        isEditing ? l10n.updateActivity : l10n.createActivity,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

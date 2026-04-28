@@ -165,6 +165,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get save => 'Save';
 
   @override
+  String get cancel => 'Cancel';
+
+  @override
   String minutes(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
